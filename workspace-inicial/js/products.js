@@ -1,0 +1,1 @@
+console.log(getJSONData(PRODUCTS_URL + '101.json'))

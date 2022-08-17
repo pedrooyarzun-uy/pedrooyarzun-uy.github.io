@@ -12,8 +12,8 @@ const validateForm = () => {
     } else {
         if(passwordInput !== ''){
             if(emailInput !== ''){
-                if(passwordInput >= 6) {
-                    console.log('todo ok')
+                if(passwordInput.length >= 6) {
+                    return true
                 } else {
                     console.log(passwordInput)
                     setErrorOutput('passwordInput')

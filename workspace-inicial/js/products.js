@@ -2,14 +2,12 @@ let container = document.getElementById('main-container')
 
 getJSONData(PRODUCTS_URL + '101.json')
 .then(response => {
-    console.log(response)
     for(let object in response.data.products){
         makeCardsForResponse(response.data.products[object])
     }
 })
 
 const makeCardsForResponse = (data) => {
-    console.log(data)
     let card = `
     <div class="list-group-item list-group-item-action">
         <div class="row">
@@ -22,6 +20,7 @@ const makeCardsForResponse = (data) => {
                 </div>
                 <p class="mb-1">${data.description}</p>
                 <p class="mb-2"> <b>Precio: </b>U$D${data.cost}</p>
+                <p class="mb-2"> <b>Cant. Vendidos: </b>${data.soldCount} 
             </div>
         </div>
     </div>

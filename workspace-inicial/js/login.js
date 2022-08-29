@@ -13,6 +13,8 @@ const validateForm = () => {
         if(passwordInput !== ''){
             if(emailInput !== ''){
                 if(passwordInput.length >= 6) {
+                    localStorage.setItem("email", emailInput)
+                    localStorage.setItem("password", passwordInput)
                     return true
                 } else {
                     console.log(passwordInput)

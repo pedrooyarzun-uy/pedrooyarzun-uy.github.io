@@ -23,7 +23,7 @@ const makeCardsForResponse = (data) => {
 
 document.addEventListener("DOMContentLoaded", function(e){
     
-    getJSONData(PRODUCTS_URL + localStorage.getItem("catID") + ".json")
+    getJSONData(PRODUCTS_URL + localStorage.getItem("catID") + EXT_TYPE)
     .then(response => {
         localStorage.setItem('productos', JSON.stringify(response.data.products))        
         for(let object in response.data.products){

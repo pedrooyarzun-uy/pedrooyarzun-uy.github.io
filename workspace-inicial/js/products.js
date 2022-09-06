@@ -2,7 +2,7 @@ let container = document.getElementById('main-container')
 
 const makeCardsForResponse = (data) => {
     let card = `
-    <div class="list-group-item list-group-item-action products-cards">
+    <div onclick="clickOnCard(${data.id})" class="list-group-item list-group-item-action products-cards cursor-active">
         <div class="row">
             <div class="col-3">
                 <img src="${data.image}" alt="${data.description}" class="img-thumbnail">
@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", function(e){
     
     getJSONData(PRODUCTS_URL + localStorage.getItem("catID") + EXT_TYPE)
     .then(response => {
+        console.log(response)
         localStorage.setItem('productos', JSON.stringify(response.data.products))        
         for(let object in response.data.products){
             makeCardsForResponse(response.data.products[object])
@@ -35,8 +36,6 @@ document.addEventListener("DOMContentLoaded", function(e){
         document.getElementById("titleDescription").appendChild(textDescription)
         
     })
-
-
 })
 
 const deleteDisplayedCards = () => {
@@ -116,4 +115,9 @@ const showAlertError = (text) => {
         alert.classList.remove('show')
         alert.removeChild(document.getElementById('text-for-danger'))
     }, 5000)    
+}
+
+const clickOnCard = (id) => {
+    localStorage.setItem("productId", id)
+    window.location = 'product-info.html'
 }

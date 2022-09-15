@@ -75,10 +75,8 @@ const makeCommentCards = (data) => {
 
 const asignStars = (stars) => {
     let totalStars = ''
-    
     for(let x = 0; x< parseInt(stars); x++){
-         totalStars += `<span class="fa fa-star checked"></span>`
+        totalStars += `<span class="fa fa-star checked"></span>`
     }
-
     return totalStars
 }

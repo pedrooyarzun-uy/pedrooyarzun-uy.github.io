@@ -12,8 +12,7 @@ const loadProduct = (data) => {
     let category = document.createTextNode(data.category)
     let sellQuantity = document.createTextNode(data.soldCount)
     let price = document.createTextNode(data.currency + ' ' + data.cost)
-    
-    document.getElementById("name").appendChild(name)
+    document.getElementById("name-ejemplo").innerHTML += data.name
     document.getElementById("description").appendChild(description)
     document.getElementById("category").appendChild(category)
     document.getElementById("price").appendChild(price)

@@ -4,6 +4,11 @@ document.addEventListener("DOMContentLoaded", function(e){
     .then(response => {
         loadProduct(response.data)
     })
+
+    getJSONData(PRODUCT_INFO_COMMENTS_URL + localStorage.getItem("productId") + EXT_TYPE)
+    .then(response => {
+        loadComments(response.data)
+    })
 })
 
 const loadProduct = (data) => {
@@ -38,11 +43,6 @@ const loadProduct = (data) => {
         carouselDiv.innerHTML += product
     }
 }
-
-getJSONData(PRODUCT_INFO_COMMENTS_URL + localStorage.getItem("productId") + EXT_TYPE)
-.then(response => {
-    loadComments(response.data)
-})
 
 const loadComments = (data) => {
     for (let comment in data){

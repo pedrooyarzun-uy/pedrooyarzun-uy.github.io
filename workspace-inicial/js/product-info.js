@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function(e){
     getJSONData(PRODUCT_INFO_URL + localStorage.getItem("productId") + EXT_TYPE)
     .then(response => {
         loadProduct(response.data)
+        loadRelatedProducts(response.data.relatedProducts)
     })
 
     getJSONData(PRODUCT_INFO_COMMENTS_URL + localStorage.getItem("productId") + EXT_TYPE)
@@ -70,12 +71,38 @@ const makeCommentCards = (data) => {
     containerForComments.innerHTML += card
 }
 
-
-
 const asignStars = (stars) => {
     let totalStars = ''
     for(let x = 0; x< parseInt(stars); x++){
         totalStars += `<span class="fa fa-star checked"></span>`
     }
     return totalStars
+}
+
+const loadRelatedProducts = (data) => {
+    for (let product in data){
+        makeRelatedProductsCards(data[product])
+    }
+}
+
+const makeRelatedProductsCards = (data) => {
+    let container = document.getElementById("card-deck")
+    const {image, name, id} = data
+    let card = `
+    <div class="card cursor-active" style="width: 18rem;" onclick="setCatID(${id})">
+        <img class="card-img-top" src="${image}" alt="Card image cap" >
+        <div class="card-body">
+            <h5 class="card-title">${name}</h5>
+        </div>
+    </div>
+    `
+
+    container.innerHTML += card
+    
+}
+
+
+const setCatID = (id) => {
+    localStorage.setItem("productId", id)
+    window.location = "product-info.html"
 }

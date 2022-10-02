@@ -11,11 +11,5 @@ document.addEventListener("DOMContentLoaded", function(){
         localStorage.setItem("catID", 103);
         window.location = "products.html"
     });
-    let li = document.getElementById("userEmail")
-    let a = document.createElement("a")
-    let text = document.createTextNode(localStorage.getItem("email"))
-    a.appendChild(text)
-    a.classList.add("nav-link")
-    a.style.color = "white"
-    li.appendChild(a)
 });
+

@@ -31,7 +31,14 @@
           <li class="nav-item">
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="userEmail" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+              <li><a class="dropdown-item" href="/cart.html">Mi Carrito</a></li>
+              <li><a class="dropdown-item" href="/my-profile.html">Mi Perfil</a></li>
+              <li><a class="dropdown-item" href="#" id="close-session">Cerrar Sesion</a></li>
+            </ul>
           </li>
         </ul>
       </div>
@@ -104,6 +111,16 @@
                 </div>
               </div>
             </div>
+            <div class="wrapper row">
+              <hr>
+              <h3 style="text-align: center; font-weight: bold;">Productos Relacionados</h3>
+              <hr>
+              <div id="related-product-section">
+                <div class="card-group" id="card-deck">
+                  
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -130,6 +147,7 @@
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
   <script src="js/product-info.js"></script>
+  <script src="js/navbar.js"></script>
 </body>
 
 </html>

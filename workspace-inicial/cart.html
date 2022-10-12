@@ -44,8 +44,63 @@
   </nav>
   <main>
     <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+      <h2 class="text-center mt-4">Carrito de Compras</h2>
+      <h4 class="text-left">Articulos a comprar</h4>
+      <div class="col-md-12 col-sm-12 col-lg-12 row justify-content-center">
+        <div class="col-auto">
+          <table class="table table-bordered table-striped text-center table-responsive">
+            <thead>
+              <tr>
+                <th scope="row"></th>
+                <th scope="row">Nombre</th>
+                <th scope="row">Costo</th>
+                <th scope="row">Cantidad</th>
+                <th scope="row">Subtotal</th>
+              </tr>
+            </thead>
+            <tbody id="table-cart">
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <hr>
+      <h4 class="text-left">Tipo de Envio</h4>
+      <div>
+        <input type="radio" id="premium">
+        <label for="premium">Premium 2 a 5 dias(15%)</label>
+      </div>
+      <div>
+        <input type="radio" id="express">
+        <label for="express">Express 5 a 8 dias(7%)</label>
+      </div>
+      <div>
+        <input type="radio" id="standard">
+        <label for="standard">Standard 12 a 15 dias(5%)</label>
+      </div>
+      <hr>
+      <h4 class="text-left">
+        Direccion de envio
+      </h4>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="row">
+          <div class="col input-group">
+            <label class="input-group-text" for="street">Calle</label>
+            <input class="form-control" type="text" id="street" placeholder="Ingrese us calle...">
+          </div>
+          <div class="col input-group">
+            <label class="input-group-text" for="street-number">N° de Calle</label>
+            <input class="form-control" type="number" id="street-number" placeholder="Ingrese su numero de calle...">
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col input-group">
+            <label class="input-group-text" for="street-corner">Esquina</label>
+            <input class="form-control" type="text" id="street-corner" placeholder="Ingrese su esquina...">
+          </div>
+        </div>
+        </div>
       </div>
     </div>
   </main>

@@ -101,6 +101,25 @@ const makeRelatedProductsCards = (data) => {
     
 }
 
+const onBuyClick = () => {
+    
+    let product = localStorage.getItem("productId")
+    let lastCart = JSON.parse(localStorage.getItem("productosCarrito"))
+    
+    if(lastCart == null){
+        localStorage.setItem("productosCarrito", JSON.parse(product))
+    } else {
+        let array = []
+        array.push(lastCart)
+        localStorage.setItem("productosCarrito", JSON.stringify(array))
+    }
+    
+    
+    console.log(lastCart.push(product))
+    console.log(lastCart)
+    localStorage.setItem("productosCarrito", JSON.stringify(lastCart))
+    //localStorage.setItem("productosCarrito", JSON.stringify(array))
+}
 
 const setCatID = (id) => {
     localStorage.setItem("productId", id)

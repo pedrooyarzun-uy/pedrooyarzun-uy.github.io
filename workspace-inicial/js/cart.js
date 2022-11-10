@@ -134,7 +134,6 @@ const handlePurchase = () => {
     
     if(handlePaymentMethod() && handleShipmentMethod() && handleShipmentAddress() && form != 0 && form != ''){
         let alert = document.getElementById("alert-success")
-        console.log(alert)
         
         alert.innerHTML += `<p id='text-for-success'>Su ha </p>`
         alert.classList.add('show')

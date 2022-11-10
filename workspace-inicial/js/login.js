@@ -17,7 +17,6 @@ const validateForm = () => {
                     localStorage.setItem("password", passwordInput)
                     return true
                 } else {
-                    console.log(passwordInput)
                     setErrorOutput('passwordInput')
                     showAlertError('La contraseña tiene que tener mas de 6 caracteres')
                     return false

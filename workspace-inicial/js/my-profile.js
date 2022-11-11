@@ -22,7 +22,7 @@ const validateProfileInfo = (e) => {
         const {id, value} = element
         
         if(!value){
-            if((id === 'second-name' || id === 'email' || id === 'second-surname')){
+            if((id === 'second-name' || id === 'cellphone' || id === 'second-surname')){
                 state[id] = true
             } else {
                 state[id] = false

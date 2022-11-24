@@ -69,8 +69,7 @@ const makeTextForElement = (text) => {
 document.addEventListener("DOMContentLoaded", function(e){
     
     getJSONData(PRODUCTS_URL + localStorage.getItem("catID") + EXT_TYPE)
-    .then(response => {
-        localStorage.setItem('productos', JSON.stringify(response.data.products))        
+    .then(response => {      
         for(let object in response.data.products){
             makeCardsForResponse(response.data.products[object])
         }

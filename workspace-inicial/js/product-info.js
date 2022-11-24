@@ -88,8 +88,11 @@ const loadRelatedProducts = (data) => {
 }
 
 const makeRelatedProductsCards = (data) => {
+    
     let container = document.getElementById("card-deck")
+    
     const {image, name, id} = data
+    
     let card = `
     <div class="card cursor-active" style="width: 18rem;" onclick="setCatID(${id})">
         <img class="card-img-top" src="${image}" alt="Card image cap" >
@@ -98,17 +101,19 @@ const makeRelatedProductsCards = (data) => {
         </div>
     </div>
     `
-
+    
     container.innerHTML += card
     
 }
 
 const addComment = (e) => {
+    
     e.preventDefault()
     
     const description = e.target[0].value
     const score = e.target[1].value
     const user = localStorage.getItem('email')
+
     let dateTime = new Date().toISOString()
     dateTime = dateTime.split('.')[0]
     dateTime = dateTime.split('T')[0] + ' ' + dateTime.split('T')[1]
@@ -123,27 +128,61 @@ const addComment = (e) => {
     makeCommentCards(data)
 }
 
-// const onBuyClick = () => {
+const onBuyClick = () => {
     
-//     let product = localStorage.getItem("productId")
-//     let lastCart = JSON.parse(localStorage.getItem("productosCarrito"))
-    
-//     if(lastCart == null){
-//         localStorage.setItem("productosCarrito", JSON.parse(product))
-//     } else {
-//         let array = []
-//         array.push(lastCart)
-//         localStorage.setItem("productosCarrito", JSON.stringify(array))
-//     }
+    let cart = null
+    let id = localStorage.getItem('productId')
+
+    if(localStorage.getItem('userCart')){
+        cart = JSON.parse(localStorage.getItem('userCart'))
+    } else {
+        cart = []
+    }
     
     
-//     console.log(lastCart.push(product))
-//     console.log(lastCart)
-//     localStorage.setItem("productosCarrito", JSON.stringify(lastCart))
-//     //localStorage.setItem("productosCarrito", JSON.stringify(array))
-// }
+
+    if(cart.length != 0){
+        
+        for (let x = 0; x<cart.length; x++){
+            
+            if(cart[x].id == id){
+                let quantity = cart[x].quantity 
+                quantity += 1
+                cart[x].quantity = quantity
+            } 
+        }
+        
+        if(cart.filter(e => e.id == id).length == 0){
+            cart.push({
+                id, 
+                quantity: 1
+            })
+        }
+        localStorage.setItem('userCart', JSON.stringify(cart))
+        showSuccessAlert()
+        
+    } else {
+        cart.push({
+            id,
+            quantity: 1
+        })
+        localStorage.setItem('userCart', JSON.stringify(cart))
+        showSuccessAlert()
+    }
+}
 
 const setCatID = (id) => {
     localStorage.setItem("productId", id)
     window.location = "product-info.html"
+}
+
+const showSuccessAlert = () => {
+    let alert = document.getElementById("alert-success")
+        
+    alert.innerHTML += `<p id='text-for-success'>¡Producto añadido exitosamente al carrito!</p>`
+    alert.classList.add('show')
+    setTimeout(() => {
+        alert.classList.remove('show')
+        alert.removeChild(document.getElementById('text-for-success'))
+    }, 5000)
 }

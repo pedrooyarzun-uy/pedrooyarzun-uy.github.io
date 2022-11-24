@@ -20,7 +20,7 @@ const validateProfileInfo = (e) => {
     Array.from(form).forEach(element => {
         
         const {id, value} = element
-        
+         
         if(!value){
             if((id === 'second-name' || id === 'cellphone' || id === 'second-surname')){
                 state[id] = true

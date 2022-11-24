@@ -56,6 +56,9 @@
             <label class="btn btn-light" for="sortByAsc">$<i class="fas fa-sort-amount-up mr-1"></i></label>
             <input type="radio" class="btn-check" name="options" id="sortByDesc" onclick="filterByDesc()">
             <label class="btn btn-light" for="sortByDesc">$<i class="fas fa-sort-amount-down mr-1"></i></label>
+            <input type="radio" class="btn-check" name="options" id="sortByRelevance" onclick="filterByRelevance()">
+            <label class="btn btn-light" for="sortByRelevance">Rel.</label>
+            <input type="text" name="searcher" id="searcher"  maxlength="16" placeholder="Ingrese el producto..." onkeyup="filterBySearch(this.value)">
           </div>
         </div>
       </div>

@@ -1,24 +1,69 @@
 let container = document.getElementById('main-container')
 
 const makeCardsForResponse = (data) => {
-    let card = `
-    <div onclick="clickOnCard(${data.id})" class="list-group-item list-group-item-action products-cards cursor-active">
-        <div class="row">
-            <div class="col-3">
-                <img src="${data.image}" alt="${data.description}" class="img-thumbnail">
-            </div>
-            <div class="col">
-                <div class="d-flex w-100 justify-content-between">
-                    <h4 class="mb-1">${data.name}</h4>
-                </div>
-                <p class="mb-1">${data.description}</p>
-                <p class="mb-2"> <b>Precio: </b>${data.currency} ${data.cost}</p>
-                <p class="mb-2"> <b>Cant. Vendidos: </b>${data.soldCount} 
-            </div>
-        </div>
-    </div>
-    `
-    container.innerHTML += card
+    let firstDiv = document.createElement('div')
+    firstDiv.className = 'list-group-item list-group-item-action products-cards cursor-active'
+    firstDiv.onclick = () => {clickOnCard(data.id)} 
+
+    let row = document.createElement('div')
+    row.className = 'row'
+    
+    let firstCol = document.createElement('div')
+    firstCol.className = 'col-3'
+    
+    let img = document.createElement('img')
+    img.src = data.image
+    img.className = 'img-thumbnail'
+    img.alt = data.description
+
+    let secondCol = document.createElement('div')
+    secondCol.className = 'col'
+
+    let secondDiv = document.createElement('div')
+    secondDiv.className = 'd-flex w-100 justify-content-between'
+
+    let h4 = document.createElement('h4')
+    h4.className = 'mb-1'
+    h4.innerHTML = data.name
+
+    let firstP = document.createElement('p')
+    firstP.className = 'mb-1'
+    firstP.innerHTML = data.description
+    
+    let secondP = document.createElement('p')
+    secondP.className = 'mb-2'
+    let firstB = document.createElement('b')
+    firstB.innerHTML = 'Precio: '
+    secondP.appendChild(firstB)
+    secondP.innerHTML += data.currency
+    secondP.innerHTML += ' ' + data.cost
+    
+    
+    let thirdP = document.createElement('p')
+    thirdP.className = 'mb-2'
+    let secondB = document.createElement('b')
+    secondB.innerHTML = 'Cant. Vendidos: '
+    thirdP.appendChild(secondB)
+    thirdP.innerHTML += data.soldCount
+
+    firstCol.appendChild(img)
+    
+    secondDiv.appendChild(h4)
+    
+    secondCol.appendChild(secondDiv)
+    secondCol.appendChild(firstP)
+    secondCol.appendChild(secondP)
+    secondCol.appendChild(thirdP)
+
+    row.appendChild(firstCol)
+    row.appendChild(secondCol)
+    firstDiv.appendChild(row)
+    container.appendChild(firstDiv)
+}
+
+const makeTextForElement = (text) => {
+    let textContent = document.createTextNode(text)
+    return textContent
 }
 
 document.addEventListener("DOMContentLoaded", function(e){
@@ -35,6 +80,8 @@ document.addEventListener("DOMContentLoaded", function(e){
         document.getElementById("titleDescription").appendChild(textDescription)
         
     })
+
+    document.getElementById('searcher').addEventListener('input', filterBySearch)
 })
 
 const deleteDisplayedCards = () => {
@@ -60,6 +107,28 @@ const filterByAsc = () => {
     for (let card in cards){
         makeCardsForResponse(cards[card])
     }
+}
+
+const filterByRelevance = () => {
+    deleteDisplayedCards()
+    let cards = JSON.parse(localStorage.getItem('productos'))
+    cards.sort((a,b) => b.soldCount - a.soldCount)
+    for (let card in cards) {
+        makeCardsForResponse(cards[card])
+    }
+    
+}
+
+const filterBySearch = (text) => {
+    deleteDisplayedCards()
+    
+    let cards = JSON.parse(localStorage.getItem('productos'))
+    
+    for (const card in cards) {
+        if(cards[card].name.includes(text) || cards[card].description.includes(text)){
+            makeCardsForResponse(cards[card])
+        } 
+    } 
 }
 
 const filterByRange = () => {

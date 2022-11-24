@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", function(e){
     .then(response => {
         loadComments(response.data)
     })
+
+    document.getElementById('comment-form').addEventListener('submit', (e) => addComment(e))
 })
 
 const loadProduct = (data) => {
@@ -101,25 +103,45 @@ const makeRelatedProductsCards = (data) => {
     
 }
 
-const onBuyClick = () => {
+const addComment = (e) => {
+    e.preventDefault()
     
-    let product = localStorage.getItem("productId")
-    let lastCart = JSON.parse(localStorage.getItem("productosCarrito"))
+    const description = e.target[0].value
+    const score = e.target[1].value
+    const user = localStorage.getItem('email')
+    let dateTime = new Date().toISOString()
+    dateTime = dateTime.split('.')[0]
+    dateTime = dateTime.split('T')[0] + ' ' + dateTime.split('T')[1]
     
-    if(lastCart == null){
-        localStorage.setItem("productosCarrito", JSON.parse(product))
-    } else {
-        let array = []
-        array.push(lastCart)
-        localStorage.setItem("productosCarrito", JSON.stringify(array))
+    let data = {
+        user,
+        description,
+        dateTime,
+        score
     }
     
-    
-    console.log(lastCart.push(product))
-    console.log(lastCart)
-    localStorage.setItem("productosCarrito", JSON.stringify(lastCart))
-    //localStorage.setItem("productosCarrito", JSON.stringify(array))
+    makeCommentCards(data)
 }
+
+// const onBuyClick = () => {
+    
+//     let product = localStorage.getItem("productId")
+//     let lastCart = JSON.parse(localStorage.getItem("productosCarrito"))
+    
+//     if(lastCart == null){
+//         localStorage.setItem("productosCarrito", JSON.parse(product))
+//     } else {
+//         let array = []
+//         array.push(lastCart)
+//         localStorage.setItem("productosCarrito", JSON.stringify(array))
+//     }
+    
+    
+//     console.log(lastCart.push(product))
+//     console.log(lastCart)
+//     localStorage.setItem("productosCarrito", JSON.stringify(lastCart))
+//     //localStorage.setItem("productosCarrito", JSON.stringify(array))
+// }
 
 const setCatID = (id) => {
     localStorage.setItem("productId", id)

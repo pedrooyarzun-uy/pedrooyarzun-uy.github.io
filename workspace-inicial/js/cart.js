@@ -30,7 +30,6 @@ var typeOfShipment = ''
 
 const makeRowsOfList = (data) => {
     
-        console.log(data)
         const {id, name, count, unitCost, currency, image} = data
         
         let tbody = document.getElementById("table-cart")
@@ -106,8 +105,7 @@ const handleSubtotalPrice = () => {
         }
         subTotal += parseInt(subTotalsElement[x].textContent.trim().split(' ')[1])
     }
-    console.log(subTotal)
-    console.log(currency)
+  
     document.getElementById('subtotal').innerHTML = `${currency} ${subTotal}`
     
 }
@@ -294,7 +292,7 @@ const deleteCard = (id) => {
     handleShipmentPrice(typeOfShipment)
     
     let cart = JSON.parse(localStorage.getItem('userCart'))
-    console.log(cart)
+    
     const objWithIndex = cart.findIndex((obj) => obj.id == id)
 
     if(objWithIndex > -1){

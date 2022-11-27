@@ -7,5 +7,5 @@ document.addEventListener("DOMContentLoaded", () => {
 document.getElementById("close-session").addEventListener("click", () => {
     localStorage.removeItem('email')
     localStorage.removeItem('password')
-    window.location.replace("/")
+    window.location.href = 'index.html'
 })

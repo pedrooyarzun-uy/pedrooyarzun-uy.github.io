@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     
     if(!localStorage.getItem('email')){
-        window.location.replace('/')
+        window.location.href = 'index.html'
     }
     loadProfile()
     document.getElementById('profile-form').addEventListener("submit", (e) => {

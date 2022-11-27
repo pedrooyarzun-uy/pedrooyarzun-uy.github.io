@@ -45,7 +45,7 @@
               // The signed-in user info.
               const user = result.user;
               localStorage.setItem('email', user.email)
-              window.location.replace('/workspace-inicial/inicio.html')
+              window.location.href = 'inicio.html'
           }).catch((error) => {
               // Handle Errors here.
               const errorCode = error.code;
@@ -61,7 +61,7 @@
   </head>
   <body class="text-center">
     <main class="form-signin">
-      <form name="loginForm" onsubmit="return validateForm()" action="./inicio.html"> 
+      <form name="loginForm" onsubmit="return validateForm()" action="inicio.html"> 
         <img src="./img/login.png" class="mb-4" alt width="300">
         <h1 class="h3 mb-3 fw-normal">Iniciar Sesion</h1>
         <div class="form-floating">

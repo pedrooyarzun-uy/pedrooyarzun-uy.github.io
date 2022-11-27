@@ -138,8 +138,6 @@ const onBuyClick = () => {
     } else {
         cart = []
     }
-    
-    
 
     if(cart.length != 0){
         

@@ -1,8 +1,27 @@
 document.addEventListener("DOMContentLoaded", () => {
+    
     getJSONData(CART_INFO_URL + '25801' + EXT_TYPE)
-    .then(response => {
-        makeRowsOfList(response.data)
+    .then((response) => {
+        makeRowsOfList(response.data.articles[0])
     })
+    
+    const products = JSON.parse(localStorage.getItem('userCart'))
+    for(let product in products){
+        getJSONData(PRODUCT_INFO_URL + products[product].id + EXT_TYPE)
+        .then((response) => {
+            
+            let data = {
+                id: response.data.id, 
+                name: response.data.name,
+                unitCost: response.data.cost,
+                currency: response.data.currency, 
+                image: response.data.images[0],
+                count: products[product].quantity  
+            }
+            makeRowsOfList(data)
+        })
+    }
+    
     document.getElementById("credit-card").addEventListener("click", handlePaymentMethod)
     document.getElementById("bank-account").addEventListener("click", handlePaymentMethod)
 })
@@ -11,31 +30,36 @@ var typeOfShipment = ''
 
 const makeRowsOfList = (data) => {
     
-    const {id, name, count, unitCost, currency, image} = data.articles[0]
-    
-    let tbody = document.getElementById("table-cart")
-    let row = `
-    <tr id="${id}">
-        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 col-xl-1">
-            <img src="${image}" alt="${name}" class="img-thumbnail">
-        </td>
-        <td>
-            ${name}
-        </td>
-        <td id="${id}-cost">
-            ${currency} ${unitCost}
-        </td>
-        <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-            <input id="${id}-quantity"type="text" class="form-control" value="${count}" onkeyup="handleQuantityChange(this.value, this.id)">
-        </td>
-        <td id="${id}-subtotal">
-            ${currency} ${count * unitCost}
-        </td>
-    </tr>
-    `
-    tbody.innerHTML += row
-    
-    handleQuantityChange(count, id)    
+        console.log(data)
+        const {id, name, count, unitCost, currency, image} = data
+        
+        let tbody = document.getElementById("table-cart")
+        
+        let row = `
+        <tr id="${id}">
+            <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1 col-xl-1">
+                <img src="${image}" alt="${name}" class="img-thumbnail">
+            </td>
+            <td>
+                ${name}
+            </td>
+            <td id="${id}-cost">
+                ${currency} ${unitCost}
+            </td>
+            <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                <input id="${id}-quantity"type="text" class="form-control" value="${count}" onkeyup="handleQuantityChange(this.value, this.id)">
+            </td>
+            <td id="${id}-subtotal">
+                ${currency} ${count * unitCost}
+            </td>
+            <td>
+                <button type="button" class="btn btn-outline-danger" id="${id}-remove" onClick="deleteCard(this.id)">Eliminar</button>
+            </td>
+        </tr>
+        `
+        tbody.innerHTML += row
+        
+        handleQuantityChange(count, id)        
 }
 
 const handleQuantityChange = (count = '' , id) => {
@@ -51,16 +75,16 @@ const handleQuantityChange = (count = '' , id) => {
         
         subTotal.innerHTML = '' 
         subTotal.innerHTML = `${currency} ${ price}` 
-        handleSubtotalPrice(price, currency)
+        handleSubtotalPrice()
         handleShipmentPrice(typeOfShipment)
     } else {
         if (count != ''){
             let cost = (document.getElementById(`${id}-cost`).textContent.trim()).split(' ')
             let price = cost[1] * count
-            handleSubtotalPrice(price, cost[0])
+            handleSubtotalPrice()
             handleShipmentPrice(typeOfShipment)
         } else {
-            handleSubtotalPrice(0, 'USD')
+            handleSubtotalPrice()
             id = id.split('-')[0]
             let subTotal = document.getElementById(`${id}-subtotal`)
             subTotal.innerHTML = `USD 0`
@@ -70,8 +94,21 @@ const handleQuantityChange = (count = '' , id) => {
     handleTotalPrice()
 }
 
-const handleSubtotalPrice = (subtotal, currency) => {
-    document.getElementById('subtotal').innerHTML = `${currency} ${subtotal}`
+const handleSubtotalPrice = () => {
+    let tableCart = document.getElementById('table-cart') 
+    let subTotalsElement = tableCart.querySelectorAll('[id*="-subtotal"]')
+    let currency = null
+    subTotal = 0
+
+    for (let x = 0; x<subTotalsElement.length; x++){
+        if(x === 0){
+            currency = subTotalsElement[x].textContent.trim().split(' ')[0] 
+        }
+        subTotal += parseInt(subTotalsElement[x].textContent.trim().split(' ')[1])
+    }
+    console.log(subTotal)
+    console.log(currency)
+    document.getElementById('subtotal').innerHTML = `${currency} ${subTotal}`
     
 }
 
@@ -247,4 +284,21 @@ const handlePaymentMethod = () => {
 
         return false
     }
+}
+
+const deleteCard = (id) => {
+    id = id.split('-')[0]
+    let td = document.getElementById(id)
+    td.remove()
+    handleSubtotalPrice()
+    handleShipmentPrice(typeOfShipment)
+    
+    let cart = JSON.parse(localStorage.getItem('userCart'))
+    console.log(cart)
+    const objWithIndex = cart.findIndex((obj) => obj.id == id)
+
+    if(objWithIndex > -1){
+        cart.splice(objWithIndex, 1)
+    }
+    localStorage.setItem('userCart', JSON.stringify(cart))
 }

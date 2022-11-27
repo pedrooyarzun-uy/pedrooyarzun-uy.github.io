@@ -45,7 +45,7 @@
               // The signed-in user info.
               const user = result.user;
               localStorage.setItem('email', user.email)
-              window.location.replace('/inicio')
+              window.location.replace('/workspace-incial/inicio')
           }).catch((error) => {
               // Handle Errors here.
               const errorCode = error.code;

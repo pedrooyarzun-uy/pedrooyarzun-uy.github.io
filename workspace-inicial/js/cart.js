@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     document.getElementById("credit-card").addEventListener("click", handlePaymentMethod)
     document.getElementById("bank-account").addEventListener("click", handlePaymentMethod)
+    document.getElementById('purchase-form').addEventListener('submit', handlePurchase)
 })
 
 var typeOfShipment = ''
@@ -148,6 +149,7 @@ const handleTotalPrice = () => {
 }
 
 const handlePurchase = () => {
+
     let state = false
     let form = document.getElementById('purchase-form').elements[0].value
     
@@ -170,7 +172,7 @@ const handlePurchase = () => {
     if(handlePaymentMethod() && handleShipmentMethod() && handleShipmentAddress() && form != 0 && form != ''){
         let alert = document.getElementById("alert-success")
         
-        alert.innerHTML += `<p id='text-for-success'>Su ha </p>`
+        alert.innerHTML += `<p id='text-for-success'>Su compra ha sido realizada exitosamente!</p>`
         alert.classList.add('show')
         setTimeout(() => {
             alert.classList.remove('show')
